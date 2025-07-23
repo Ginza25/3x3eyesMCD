@@ -15,6 +15,7 @@ Static text graphics are found in several menus. They can be difficult to spot, 
 
 * "yes/no" popup when asked questions in the ordinary dialog.
 * "Load/New game" menu when starting the game
+* Menu choices in the Backup RAM interface (though not longer text strings)
 
 The graphics are stored within _000PRG.DAT using Kosinski-compression (LZ), which is well documented. They are decompressed using the Sega Mega Drive 68000, and then a tilemap is applied. The tilemap is also stored in _000PRG.DAT, but is not compressed. Several tiles may be reused, for example one character is used in several menu choices. You cannot simply decompress the data and get the menu graphics, but need to apply a tilemap.
 
