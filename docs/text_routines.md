@@ -20,3 +20,23 @@ Static text graphics are found in several menus. They can be difficult to spot, 
 The graphics are stored within _000PRG.DAT using Kosinski-compression (LZ), which is well documented. They are decompressed using the Sega Mega Drive 68000, and then a tilemap is applied. The tilemap is also stored in _000PRG.DAT, but is not compressed. Several tiles may be reused, for example one character is used in several menu choices. You cannot simply decompress the data and get the menu graphics, but need to apply a tilemap.
 
 Translating the static text graphics should be fairly straightforward, just by decompressing, modifying and recompressing graphics. Probably some modification of the tilemap may be needed, either to expand menu graphics or due to shared tiles of Japanese characters not matching with Latin ones.
+
+# Text boxes
+
+Text boxes, or graphics frames, are loaded by the function at 0x9a54 (in memory) located in _000PRG.DAT (0x2854), lets call it "QueueGfxLoadByIndex" for now. The function argument in register D0 selects the textbox size and position to use and reads a nametable with graphics tiles. Text box grapics should already have been decompressed to memory, and can include standard border graphics and static text fonts, or specific border/font graphics. If the text box contains different items to select, selection and functions to run are handled elsewhere. Textboxes can be empty, to be filled by the Dynamic text function, or with static text or other graphics.
+
+* 0x00 Standard full width, four lines high textbox used for dialogue.
+* 0x02 Status screen portraits (left side)
+* 0x03 Yes/no popup (static text)
+* 0x05 Status screen stats (right side)
+* 0x06 In-game menu "mode" sub-selection (static text)
+* 0x07 Main in-game menu (static text)
+* 0x0A Equipment stats (right side)
+* 0x0D Character portrait frame
+* 0x23 Used for the Backup RAM screen
+* 0x24 Used for the Backup RAM screen
+* 0x25 Used for the Backup RAM screen
+* 0x29 Text box used for the Load / Start new game menu.
+* 0x2A Expanded text box for the Load / Start new game menu, including static text for a "music mode" (音楽モード) and mysterious "???" option.
+* 0x2C Used for the Backup RAM screen
+* 0x2E Techinque application sub screen
