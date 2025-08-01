@@ -31,6 +31,8 @@ Text boxes, or graphics frames, are loaded by the function at 0x9a54 (in memory)
 * 0x05 Status screen stats (right side)
 * 0x06 In-game menu "mode" sub-selection (static text)
 * 0x07 Main in-game menu (static text)
+* 0x09 Equipment sub-menu ? (using custom static text graphics)
+* 0x11 Main battle dialogue menu
 * 0x0A Equipment stats (right side)
 * 0x0D Character portrait frame
 * 0x23 Used for the Backup RAM screen
