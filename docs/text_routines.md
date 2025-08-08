@@ -26,19 +26,30 @@ Translating the static text graphics should be fairly straightforward, just by d
 Text boxes, or graphics frames, are loaded by the function at 0x9a54 (in memory) located in _000PRG.DAT (0x2854), lets call it "QueueGfxLoadByIndex" for now. The function argument in register D0 selects the textbox size and position to use and reads a nametable with graphics tiles. Text box grapics should already have been decompressed to memory, and can include standard border graphics and static text fonts, or specific border/font graphics. If the text box contains different items to select, selection and functions to run are handled elsewhere. Textboxes can be empty, to be filled by the Dynamic text function, or with static text or other graphics.
 
 * 0x00 Standard full width, four lines high textbox used for dialogue.
+* 0x01 Item sub-menu?
 * 0x02 Status screen portraits (left side)
-* 0x03 Yes/no popup (static text)
+* 0x03 Yes/no popup
+  * Uses static text tiles found Kosinski compressed at 0x3e000 in_000PRG.DAT
 * 0x05 Status screen stats (right side)
-* 0x06 In-game menu "mode" sub-selection (static text)
-* 0x07 Main in-game menu (static text)
+* 0x06 In-game menu "mode" sub-selection
+  * Uses static text tiles found Kosinski compressed at 0x3e000 in_000PRG.DAT
+* 0x07 Main in-game menu
+  * Uses static text tiles found Kosinski compressed at 0x3e000 in_000PRG.DAT
 * 0x09 Equipment sub-menu ? (using custom static text graphics)
 * 0x11 Main battle dialogue menu
 * 0x0A Equipment stats (right side)
 * 0x0D Character portrait frame
 * 0x23 Used for the Backup RAM screen
+  * Top textbox showing Internal Backup RAM or RAM Cart being used
+  * Uses static text tiles found Kosinski compressed at 0x3fe8e and 0x4025e in_000PRG.DAT
 * 0x24 Used for the Backup RAM screen
+  * Middle text box showing save file names
 * 0x25 Used for the Backup RAM screen
+* 0x26 Used for the Backup RAM screen (check, shows menu options).
+  * Uses static text tiles found Kosinski compressed at 0x3fe8e and 0x4025e in_000PRG.DAT
 * 0x29 Text box used for the Load / Start new game menu.
+  * Uses static text tiles found Kosinski compressed at 0x424b0 in_000PRG.DAT
 * 0x2A Expanded text box for the Load / Start new game menu, including static text for a "music mode" (音楽モード) and mysterious "???" option.
+  * Uses static text tiles found Kosinski compressed at 0x424b0 in_000PRG.DAT
 * 0x2C Used for the Backup RAM screen
 * 0x2E Techinque application sub screen
