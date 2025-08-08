@@ -27,6 +27,7 @@ Text boxes, or graphics frames, are loaded by the function at 0x9a54 (in memory)
 
 * 0x00 Standard full width, four lines high textbox used for dialogue.
 * 0x01 Item sub-menu?
+  * Uses static text tiles found Kosinski compressed at 0x3e6a0 in_000PRG.DAT
 * 0x02 Status screen portraits (left side)
 * 0x03 Yes/no popup
   * Uses static text tiles found Kosinski compressed at 0x3e000 in_000PRG.DAT
