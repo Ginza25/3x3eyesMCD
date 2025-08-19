@@ -1,3 +1,25 @@
+# _000PRG.DAT
+
+The file _000PRG.DAT contains the game program and some data.
+
+## Filemap
+
+0x174e8 Start of LZ (Kosinski) decompression function run on SCD 68K processor.
+
+0x37602 Start of LZ (Kosinski) decompression function run on MD 68K processor.
+
+0x3e000 LZ-compressed limited font characters used for static menu graphics.
+
+0x3e6a0 LZ-compressed additional Kanji-characters
+
+0x3ea10 LZ-compressed additional thin (1 pixel line) Kanji-characters
+
+0x3eec0 LZ-compressed character status-text Kanji (displayed on top of character portraits)
+
+0x423c0 LZ-compressed tilemap for the New game/Load savegame background with Pai
+
+0x424b0-0x42d4f LZ-compressed Pai graphic from the New game/Load savegame screen
+
 # EV files
 
 EV files (Event?) contain specific sprites, event data, text and portraits for a scenario/script/location. They are loaded, at least, together with a MAP file, which contains the map as expected and a PLAY file, which contains the scenario hints and additional portraits.
