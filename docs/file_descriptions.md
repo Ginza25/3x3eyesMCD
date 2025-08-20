@@ -20,6 +20,10 @@ The file _000PRG.DAT contains the game program and some data.
 
 0x424b0-0x42d4f LZ-compressed Pai graphic from the New game/Load savegame screen
 
+# BNK files
+
+Contains 8-bit PCM instrument samples.
+
 # EV files
 
 EV files (Event?) contain specific sprites, event data, text and portraits for a scenario/script/location. They are loaded, at least, together with a MAP file, which contains the map as expected and a PLAY file, which contains the scenario hints and additional portraits.
@@ -59,3 +63,7 @@ EV0003B.DAT 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic 
 EV0003E.DAT 「香港妖魔変」"Hong Kong Demon Transformation"
 
 EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016.DAT has a different version of this, missing parts of the ending)
+
+# MAP files
+
+Contain LZ (Kosinksi) compressed 8x8 tiles, tile color palettes and, probably, tilemaps for the game maps.
