@@ -26,7 +26,7 @@ Contains 8-bit PCM instrument samples.
 
 # EV files
 
-EV files (Event?) contain specific sprites, event data, text and portraits for a scenario/script/location. They are loaded, at least, together with a MAP file, which contains the map as expected and a PLAY file, which contains the scenario hints and additional portraits.
+EV files (Event?) contain scenario specific sprites, event data, text and portraits for a scenario/script/location. They are loaded, at least, together with a MAP file, which contains the map as expected and a PLAY file, which contains the scenario hints and additional portraits.
 
 The file starts with sprite data from 0x0 to some point before 0xc800. At 0xc800 an event type script data is stored. This includes for example different actions to take depending on if some flags have been set when attempting to open a door. Some times text data is stored here instead. There seems to be at least two variations of the EV files - with text data either at 0xc800 or 0x14800. If no text data at 0xc800, then text data is stored at 0x14800. In that case portraits to use with the text are stored Kosinski-compressed, with a preceding header at 0x1b000, 0x1bd00, 0x1ca00, 0x1d700 and 0x1e400 and an attached tilemap and palette.
 
@@ -67,3 +67,15 @@ EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016
 # MAP files
 
 Contain LZ (Kosinksi) compressed 8x8 tiles, tile color palettes and, probably, tilemaps for the game maps.
+
+# PLAY files
+
+Contain the main character sprite sets (each party configuration seems to have a separate file). Also contains the hint system text data.
+
+# SMON files
+
+Some kind of encoded graphics (monster graphics?)?
+
+# SPLAY files
+
+Some kind of encoded graphics (player graphics?)?
