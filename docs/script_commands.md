@@ -1,19 +1,24 @@
 # Introduction
-The game has several script commands. One type of script command is to print text, and such commands take several separate text control codes. For each pointer table preceding a script data block, e.g. typically located at 0x14800 in EV-files, the pointer first points to a **script command** within the script data block, which then may (or may not) include a command to print text data. The text data may contain separate **text control codes**, which are handled by the text processing engine.
+The Event files first have a block of **event opcodes** which are run if an event occurs, probably according to an event index number, such as talking to a person or attempting to open a door. These event opcodes are typically located at 0xC800 in the EV-files. Event opcodes seem to run functions for moving characters around, panning the screen and printing text etc. One (or more) event opcode can point to an entry in the text block, typically located at 0x14800. The text block starts with a pointer table to each of the entries. Each entry in the text block begins with a separate set of **text opcodes**. Text opcodes include testing flags and selecting alternative dialogue options etc. Each text entry may (or may not) include an opcode to print text data (such as 0x24). The print text data function includes separate **text control codes**, relating more to the actual presentation of text/portraits etc., which are handled by the text processing engine.
 
-There are in total 121 script commands according to the jump table in _000PRG.DAT at 0x1b7ce (0x229ce in memory). However, several of these overlap, e.g. with the only difference being whether to continue processing the next script command or to stop.
+Text opcodes include references to offsets. For this reason if the location of text opcodes within the text data block is moved around or expanded, all following text opcodes with offset references must be updated. It is not enough to update the preceding pointer table pointing to the start of each text entry. It is therefore necessary to analyse the many text opcodes and find which ones contain offsets vs. other parameters (flags to check etc.). Text opcodes which do not reference offsets, can probably be left untouched, at least for translation purposes.
 
-Script commands include references to offsets. For this reason if script data within the script data block (such as text data) is moved around or expanded, all following script commands with offset references must be updated. It is not enough to update the preceding pointer table pointing to each script command. Otherwise the script commands will fail as the offset reference is no longer valid. It is therefore necessary to analyse the many script commands and find which ones contain offsets vs. other parameters (flags to check etc.). Script commands which do not reference offsets, can probably be left untouched, at least for translation purposes.
+There are in total 82 event opcodes (according to the jump table in _000PRG.DAT at 0x1cd1e (0x23f1e in memory)) and 121 text opcodes (according to the jump table in _000PRG.DAT at 0x1b7ce (0x229ce in memory)). However, several of the text opcodes overlap, e.g. with the only difference being whether to continue processing the next opcode or to stop.
 
-# Script commands
+# Event opcodes
+
+## 0x2A
+Seems to request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry.
+
+# Text opcodes
 
 ## 0x01 Return
 
-Ends processing of script commands. Some script commands automatically set the return flag, otherwise a 0x01 command is needed.
+Ends processing of text opcodes. Some text opcodes automatically set the return flag, otherwise a 0x01 opcode is needed.
 
 ## 0x06 Process text offset if flag true
 
-Format is 0x06 XX XX YY YY, where XX XX is the flag to check and YY YY is the offset with text data to process if the flag is true. If the flag is not true, the byte following YY YY is processed as a script command. In theory this could be 0x01 to stop processing script commandd. In practice it often seems to be a 0x24 script command to print a default text if the flag is not set. Example: 06 0108 00D2 24 00AE, checks if Ling Ling is present (flag 0108), if so, process text data at offset 00D2, otherwise script command 24 will process text data at offset 00AE and return.
+Format is 0x06 XX XX YY YY, where XX XX is the flag to check and YY YY is the offset with text data to process if the flag is true. If the flag is not true, the byte following YY YY is processed as a text opcode. In theory this could be 0x01 to stop processing text opcodes. In practice it often seems to be a 0x24 opcode to print a default text if the flag is not set. Example: 06 0108 00D2 24 00AE, checks if Ling Ling is present (flag 0108), if so, process text data at offset 00D2, otherwise opcode 0x24 will process text data at offset 00AE and return.
  
 ## 0x0A Test flag
 
@@ -25,32 +30,31 @@ Check for additional flag immediately following. Store success 0x01 in be008 if 
 
 ## 0x12 Process text offset if flag(s) not true
 
-Process text data starting at two byte text offset immediately following, if flag(s) are not yet set. Typically combined with a preceding 0x0A (and 0x0B if two flags) script command.
+Process text data starting at two byte text offset immediately following, if flag(s) are not yet set. Typically combined with a preceding 0x0A (and 0x0B if two flags) text opcode.
 
 ## 0x13 Process text offset if flag(s) true
 
-Process text data starting at two byte text offset immediately following, if flag(s) are already set. Typically combined with a preceding 0x0A (and 0x0B if two flags) script command.
+Process text data starting at two byte text offset immediately following, if flag(s) are already set. Typically combined with a preceding 0x0A (and 0x0B if two flags) text opcode.
 
 ## 0x1A Process text offset, set flag and return
 
-Process text data starting at two byte text offset immediately following, then sets flag defined by next two bytes and stops processing control codes.
+Process text data starting at two byte text offset immediately following, then sets flag defined by next two bytes and stops processing text opcodes.
 
-For example 1a 0a16 0118: starts text processing at offset 0a16, then sets flag 0118 and ends processing control codes.
+For example 1a 0a16 0118: starts text processing at offset 0a16, then sets flag 0118 and ends processing text opcodes.
 
-This script command is used a lot - typically if you need to talk to a number of NPCs in an area to set flags and proceed in the game, but there is no specific feedback from the NPC. For example you need to talk to a shopkeeper to set a flag, but his dialogue is always the same.
+This text opcode is used a lot - typically if you need to talk to a number of NPCs in an area to set flags and proceed in the game, but there is no specific feedback from the NPC. For example you need to talk to a shopkeeper to set a flag, but his dialogue is always the same.
 
-**0x3E** is the same script command as **0x1A**, only it does not return, but continues processing script commands.
+**0x3E** is the same text opcode as **0x1A**, only it does not return, but continues processing text opcodes.
 
 ## 0x24 Process text offset and return
 
-Processes text data starting at two byte text offset immediately following and then stops processing control codes.
+Processes text data starting at two byte text offset immediately following and then stops processing text opcodes.
 
-**0x4C** is the same script command as **0x24**, only it does not return, but continues processing script commands.
+**0x4C** is the same script command as **0x24**, only it does not return, but continues processing text opcodes.
 
 # Text control codes
 
-Text control codes are arguments to the text processing function/engine
-They are evaluated if a script command to run the process text data function is run first, such as 0x1A or 0x24.
+Text control codes are arguments to the text processing function/engine and are more related to the presentation than conditions for printing text etc. (handled by **text opcodes**). They are evaluated if a text opcode to run the process text data function is run first, such as 0x1A or 0x24.
 
 ## 0xE0 Show portrait
 The **E0** control code takes a single byte argument, observed from 0x00 to 0x0B, which indicates a character portrait to print by a text box. The portraits available depend on the current EV-file, where up to 5 portraits are stored Kosinski-compressed, and additional PLAY-files, where additional portraits may be stored.
