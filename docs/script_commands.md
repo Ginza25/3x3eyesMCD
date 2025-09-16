@@ -7,8 +7,21 @@ There are in total 82 event opcodes (according to the jump table in _000PRG.DAT 
 
 # Event opcodes
 
-## 0x2A
-Seems to request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry.
+## 0x24 Wait before processing next opcode
+
+Immediately following byte specifies time to wait.
+
+## 0x2A Request text
+
+Request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry. The two bytes at 0x14800 specify the location of the first two byte pointer pair in this index.
+
+## 0x35 Move actor sprite
+
+First byte selects which actor to manipulate. The 4 bytes after opcode 0x35 are two signed 16-bit words: X velocity and Y velocity, in big-endian, stored into the actor’s velocity fields as (value << 8) (i.e., 8.8 fixed-point in a 32-bit slot).
+
+## 0x37 Change actor sprite
+
+Change actor sprite. First byte selects which actor to manipulate. 0x00 is Yakumo typically, 0x01 Pai, and so on. 0x05 is Aguri in Hong Kong. Second byte unknown. Third byte seems to be direction actor is facing.
 
 # Text opcodes
 
