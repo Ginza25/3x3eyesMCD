@@ -9,11 +9,11 @@ There are in total 82 event opcodes (according to the jump table in _000PRG.DAT 
 
 ## 0x1C Setup actor
 
-First following byte is the actor ID, it seems. Bytes 6 and 7 specify the text block index to associate with talking to this actor.
+First following byte is the actor ID, it seems. Bytes 6 and 7 specify the text block index to associate with talking to this actor. Runs on loading an area, not every time you talk to an actor.
 
 ## 0x1F Setup actor II
 
-Setup actor with some differences, less commonly used. Bytes 7 and 8 specify the text block index to associate with talking to this actor.
+Setup actor with some differences, less commonly used. Bytes 7 and 8 specify the text block index to associate with talking to this actor. Runs on loading an area, not every time you talk to an actor.
 
 ## 0x24 Wait before processing next opcode
 
