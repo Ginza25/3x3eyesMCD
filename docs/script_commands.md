@@ -21,7 +21,7 @@ Immediately following byte specifies time to wait.
 
 ## 0x2A Request text
 
-Request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry. The two bytes at 0x14800 specify the location of the first two byte pointer pair in this index.
+Request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry. The two bytes at 0x14800 specify the location of the first two byte pointer pair in this index. Used in cutscenes, where there is no player interaction with NPCs.
 
 ## 0x35 Move actor sprite
 
