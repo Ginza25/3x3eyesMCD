@@ -1,0 +1,77 @@
+opcodes:
+  0x00:
+    name: NOP
+    arg_count: 0
+    continues: true
+  0x01:
+    name: End
+    arg_count: 0
+    continues: false
+  0x02:
+    name: Check_stuff
+    arg_count: 3
+    arg_is_offset: [false, true, false]
+    continues: true
+    
+  0x06:
+    name: Check_variable_if_set_print_text
+    arg_count: 2
+    arg_is_offset: [false, true]
+    continues: true
+    
+  0x0A:
+    name: Test_flag_true_false
+    arg_count: 1
+    continues: true
+  0x0B:
+    name: Test_flag_AND_true_false
+    arg_count: 1
+    continues: true
+  0x12:
+    name: Print_text_if_false
+    arg_count: 1
+    arg_is_offset: [true]
+    continues: true
+    
+  0x1a:
+    name: Print_text_set_flag
+    arg_count: 2
+    arg_is_offset: [true, false]
+    continues: false
+  0x24:
+    name: print_text
+    arg_count: 1
+    arg_is_offset: [true]
+    continues: false
+    
+  0x27:
+    name: EventFlag_Set_UsingInlineId
+    arg_count: 1
+    continues: true
+    
+  0x2E:
+    name: SetCondFromEventFlag
+    arg_count: 1
+    arg_is_offset: [false]
+    continues: true
+
+  0x4C:
+    name: PrintText
+    arg_count: 1
+    arg_is_offset: [true]
+    continues: true
+  0x4F:
+    name: StartActorScriptAndExit
+    arg_count: 1
+    continues: false
+  0x56:
+    name: SubtractImmediateFromLastResult
+    arg_count: 1
+    arg_widths: [1]
+    arg_is_offset: [false]
+    continues: true
+  0x59:
+    name: ActivateActorScript1
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
