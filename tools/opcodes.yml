@@ -32,7 +32,11 @@ opcodes:
     arg_count: 1
     arg_is_offset: [true]
     continues: true
-    
+  0x13:
+    name: Print_text_if_true
+    arg_count: 1
+    arg_is_offset: [true]
+    continues: true
   0x1a:
     name: Print_text_set_flag
     arg_count: 2
@@ -74,4 +78,12 @@ opcodes:
     name: ActivateActorScript1
     arg_count: 1
     arg_widths: [1]
+    continues: true
+  0x5B:
+    name: PromptYesNo_SaveResult
+    arg_count: 0
+    continues: true
+  0x5D:
+    name: StartCutsceneMode
+    arg_count: 3
     continues: true
