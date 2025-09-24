@@ -7,4 +7,4 @@ This is a small tool which takes the "flagid" provided to a control code in the 
 
 # readopcodes.c
 
-This is a small program which reads the text opcode block of an input EV/event file (usually found at 0x14800), and interprets the opcodes according to the opcodes.yml file. For example you can use EV00006.DAT, where the pointer table starts at 0x14808.
+This is a small program which reads the text opcode block of an input EV/event file (usually found at 0x14800), and interprets the opcodes according to the opcodes.yml file. For example you can use EV00006.DAT. Also supply the table file 3x3eyes.tbl to print text data to screen.
