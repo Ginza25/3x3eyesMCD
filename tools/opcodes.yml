@@ -12,18 +12,53 @@ opcodes:
     arg_count: 3
     arg_is_offset: [false, true, false]
     continues: true
+  0x03:
+    name: IfFlagTrue_Skip4bytes_Else_GotoDialog_end_processing
+    arg_count: 3
+    arg_is_offset: [false, true, false]
+    arg_is_text_offset: [false, true, false]
+    continues: false
   0x06:
     name: If_var_print_text_else
     arg_count: 2
     arg_is_offset: [false, true]
     arg_is_text_offset: [false, true]
+    arg_is_flag: [true, false]
+    continues: true
+  0x07:
+    name: If_var_false_print_text_else
+    arg_count: 2
+    arg_is_offset: [false, true]
+    arg_is_text_offset: [false, true]
+    continues: true
+  0x08:
+    name: YesNo_DispatchTwoHeaders
+    arg_count: 2
     continues: true
   0x0A:
     name: Test_flag_true_false
     arg_count: 1
+    arg_is_flag: [true]
     continues: true
   0x0B:
     name: Test_flag_AND_true_false
+    arg_count: 1
+    arg_is_flag: [true]
+    continues: true
+  0x0C:
+    name: Test_flag_OR_true_false
+    arg_count: 1
+    continues: true
+  0x0d:
+    name: Test_flag_XOR
+    arg_count: 1
+    continues: true
+  0x10:
+    name: NOP
+    arg_count: 0
+    continues: true
+  0x11:
+    name: SetEventFlagFromLastTest
     arg_count: 1
     continues: true
   0x12:
@@ -43,11 +78,13 @@ opcodes:
     arg_count: 2
     arg_is_offset: [true, false]
     arg_is_text_offset: [true, false]
+    arg_is_flag: [false, true]
     continues: false
   0x20:
     name: CondSetDialoguePtr
     arg_count: 1
     arg_is_offset: [true]
+    arg_is_text_offset: [true]
     continues: false
   0x24:
     name: Print_text
@@ -59,9 +96,14 @@ opcodes:
     name: JumpToBankOffset16
     arg_count: 1
     arg_is_offset: [true]
-    continues: true
+    follow_targets: [true]
+    continues: true  
   0x27:
     name: EventFlag_Set_UsingInlineId
+    arg_count: 1
+    continues: true
+  0x28:
+    name: FlagClear_InlineId
     arg_count: 1
     continues: true
   0x2E:
@@ -69,16 +111,38 @@ opcodes:
     arg_count: 1
     arg_is_offset: [false]
     continues: true
+  0x35:
+    name: SetFlagIndexFromLastTest
+    arg_count: 0
+    continues: false
+  0x38:
+    name: IfFlag_JumpAndExec_ElseSetFlagMaybe
+    arg_count: 3
+    arg_is_offset: [false, true, false]
+    arg_is_text_offset: [false, true, false]
+    continues: true
   0x3E:
     name: JumpAndExecOne
-    arg_count: 1
-    arg_is_offset: true
+    arg_count: 6
+    arg_widths: [2, 3, 3, 3, 3, 3]
+    arg_is_offset: [true, false, false, false, false, false]
+    arg_is_text_offset: [true, false, false, false, false, false]
+    continues: false
+  0x46:
+    name: IfFlagTrue_JumpToText_ElseSkip2
+    arg_count: 2
+    arg_is_offset: [false, true]
+    arg_is_text_offset: [false, true]
     continues: true
   0x4C:
     name: PrintText
     arg_count: 1
     arg_is_offset: [true]
     arg_is_text_offset: [true]
+    continues: true
+  0x4E:
+    name: SetFlagIfActorInRect
+    arg_count: 4
     continues: true
   0x4F:
     name: StartActorScriptAndExit
@@ -88,8 +152,27 @@ opcodes:
     name: TestBankedTarget_SetLastResult
     arg_count: 1
     continues: true
+  0x51:
+    name: SelectionCache_SetEventSlot
+    arg_count: 1
+    continues: true
   0x52:
     name: SetLastTestResult_imm8
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x53:
+    name: LastResult_AND_Imm8
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x54:
+    name: LastResult_OR_Imm8
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x55:
+    name: LastResult_XOR_Imm8
     arg_count: 1
     arg_widths: [1]
     continues: true
@@ -99,10 +182,24 @@ opcodes:
     arg_widths: [1]
     arg_is_offset: [false]
     continues: true
+  0x57:
+    name: LastResult_ADD_Imm8
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x58:
+    name: CmpLastResult_Imm8_SetFlags
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
   0x59:
     name: ActivateActorScript1
     arg_count: 1
     arg_widths: [1]
+    continues: true
+  0x5A:
+    name: Fetch_ImmediateWord
+    arg_count: 1
     continues: true
   0x5B:
     name: PromptYesNo_SaveResult
@@ -111,4 +208,80 @@ opcodes:
   0x5D:
     name: StartCutsceneMode
     arg_count: 3
+    continues: true
+  0x5E:
+    name: InitScriptedMode_RelativeToActorXY
+    arg_count: 3
+    continues: true
+  0x5F:
+    name: AddKeyItemAndPopup
+    arg_count: 4
+    arg_widths: [1, 1, 1, 1]
+    continues: true
+  0x60:
+    name: CheckActorId_ToLastTest
+    arg_count: 1
+    continues: true
+  0x61:
+    name: SelectionCache_DisableByCode
+    arg_count: 1
+    continues: true
+  0x64:
+    name: SpawnActor_InitScriptsAndRefresh
+    arg_count: 6
+    arg_widths: [1, 1, 1, 1, 1, 1, 1]
+    continues: true
+  0x65:
+    name: TileRectBlitOrDMA
+    arg_count: 7
+    arg_widths: [2, 1, 1, 1, 2, 1, 1]
+    arg_is_offset: [false, false, false, false, true, false, false]
+    continues: true
+  0x66:
+    name: CallEffect_ModeValue
+    arg_count: 2
+    arg_widths: [2, 1]
+    continues: true
+  0x6e:
+    name: Select_1_of_2_SetNextDialoguePtr_StopProcessing
+    arg_count: 2
+    arg_widths: [2]
+    arg_is_offset: [true, true]
+    arg_is_text_offset: [true, true]
+    continues: false
+  0x6f:
+    name: ResetActorSlot
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x70:
+    name: SpawnMapObject_SetFlag
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x71:
+    name: ActorTable_FindActiveById
+    arg_count: 1
+    arg_widths: [1]
+    continues: true
+  0x72:
+    name: ActorDispatchWithOptionalInit
+    arg_count: 2
+    arg_widths: [1, 2]
+    continues: true
+  0x73:
+    name: SetCondFlag_IfMoneyGreaterThan
+    arg_count: 1
+    continues: true
+  0x74:
+    name: AdjustMoney_S16_Clamp0_9999999
+    arg_count: 1
+    continues: true
+  0x77:
+    name: MapActors_SyncPendingToCurrentPos
+    arg_count: 0
+    continues: true
+  0x78:
+    name: EnqueueEffect_AndVdpBufferSync
+    arg_count: 1
     continues: true
