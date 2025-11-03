@@ -7,6 +7,7 @@
 
 #define MAX_NAME 64
 #define MAX_ARGS 16
+#define DEFAULT_CSV_PATH "rom_index.csv"
 
 typedef struct {
     uint8_t opcode;
@@ -16,6 +17,7 @@ typedef struct {
     uint8_t arg_width[MAX_ARGS];         // 1,2,4 (default 2)
     bool    follow_targets[MAX_ARGS];    // follow control-flow target
     bool    arg_is_text_offset[MAX_ARGS];// if true: decode text at base+value using table
+	bool    arg_is_flag[MAX_ARGS];          // <--- NEW
     bool    continues;
 } OpcodeDef;
 
@@ -82,6 +84,75 @@ static unsigned long read_ulong_prompt_anybase(const char *prompt) {
     return x;
 }
 static void die(const char *msg) { fprintf(stderr, "%s\n", msg); exit(1); }
+static void prompt_line(const char *prompt, char *out, size_t outsz) {
+    printf("%s", prompt); fflush(stdout);
+    if (!fgets(out, outsz, stdin)) die("input error");
+    out[strcspn(out, "\r\n")] = 0;
+}
+
+/* ---------- small helpers for CSV / paths ---------- */
+
+static const char* path_basename(const char *p) {
+    const char *s = strrchr(p, '/');
+    const char *t = strrchr(p, '\\');
+    const char *b = (s && t) ? (s>t?s:t) : (s ? s : t);
+    return b ? b+1 : p;
+}
+
+typedef struct {
+    bool found;
+    char yaml_path[512];
+    char table_path[512];
+    unsigned long pointer_base;
+    unsigned long pointer_count;
+} RomConfig;
+
+static bool load_rom_config(const char *csv_path, const char *filename, RomConfig *out) {
+    FILE *f = fopen(csv_path, "rb");
+    if (!f) return false;
+    char line[2048];
+    bool matched = false;
+    while (fgets(line, sizeof line, f)) {
+        char *p = trim(line);
+        if (!*p || *p=='#') continue;
+        // split by commas into up to 5 fields
+        char *fields[5] = {0};
+        for (int i=0;i<5;i++) {
+            if (!p) break;
+            fields[i] = trim(p);
+            char *comma = strchr(fields[i], ',');
+            if (comma) { *comma = '\0'; p = comma+1; }
+            else p = NULL;
+        }
+        if (!fields[0] || !fields[1] || !fields[2] || !fields[3] || !fields[4]) continue;
+        if (strcmp(fields[0], filename) == 0) {
+            strncpy(out->yaml_path,  fields[1], sizeof out->yaml_path -1);
+            strncpy(out->table_path, fields[2], sizeof out->table_path -1);
+            out->pointer_base  = strtoul(fields[3], NULL, 0); // supports 0x... or dec
+            out->pointer_count = strtoul(fields[4], NULL, 0);
+            matched = true;
+            break;
+        }
+    }
+    fclose(f);
+    out->found = matched;
+    return matched;
+}
+
+static void append_rom_config(const char *csv_path,
+                              const char *filename,
+                              const char *yaml_path,
+                              const char *table_path,
+                              unsigned long pointer_base,
+                              unsigned long pointer_count)
+{
+    FILE *f = fopen(csv_path, "ab");
+    if (!f) { perror(csv_path); die("cannot open CSV for append"); }
+    // Write base in 0xHEX so it round-trips cleanly via strtoul(..., 0)
+    fprintf(f, "%s,%s,%s,0x%lX,%lu\n",
+            filename, yaml_path, table_path, pointer_base, pointer_count);
+    fclose(f);
+}
 
 /* ---------- file reading (big-endian) ---------- */
 
@@ -127,6 +198,7 @@ static void set_defaults(OpcodeDef *d) {
     for (int i=0;i<MAX_ARGS;i++){
         d->arg_is_offset[i]=false;
         d->arg_is_text_offset[i]=false;
+        d->arg_is_flag[i]=false;           // <--- NEW
         d->arg_width[i]=2;
         d->follow_targets[i]=false;
     }
@@ -167,6 +239,15 @@ static void load_defs(const char *path, DefVec *out) {
                 char tok[16]={0}; int t=0; while(*v&&*v!=','&&*v!=']'&&!isspace((unsigned char)*v)&&t<15) tok[t++]=*v++;
                 bool b; if(parse_bool_ci(tok,&b)) cur.arg_is_text_offset[idx++]=b; while(*v&&*v!=','&&*v!=']') v++;
             }
+		} else if (!strncmp(p,"arg_is_flag:",12)) {
+			char *v=strchr(p,'['); if(!v) continue; v++; int idx=0;
+			while(*v && *v!=']' && idx<MAX_ARGS){
+				while(isspace((unsigned char)*v)||*v==',') v++;
+				char tok[16]={0}; int t=0;
+				while(*v&&*v!=','&&*v!=']'&&!isspace((unsigned char)*v)&&t<15) tok[t++]=*v++;
+				bool b; if(parse_bool_ci(tok,&b)) cur.arg_is_flag[idx++]=b;
+				while(*v&&*v!=','&&*v!=']') v++;
+			}
         } else if (!strncmp(p,"arg_widths:",11)) {
             char *v=strchr(p,'['); if(!v) continue; v++; int idx=0;
             while(*v && *v!=']' && idx<MAX_ARGS){
@@ -208,8 +289,6 @@ static void load_text_table(const char *path, TextMap *tm) {
         *eq='\0';
         char *kstr=trim(p);
         char *vstr=trim(eq+1);
-        // strip trailing newline already via trim
-        // uppercase hex for key
         for(char *q=kstr; *q; ++q) *q=(char)toupper((unsigned char)*q);
         size_t klen=strlen(kstr);
         if (klen==2) {
@@ -232,6 +311,54 @@ static void uvec_push(ULongVec *v, unsigned long x){
 }
 static bool uvec_contains(const ULongVec *v, unsigned long x){ for(size_t i=0;i<v->count;i++) if(v->items[i]==x) return true; return false; }
 
+/* ---------- flag table (hex => description) ---------- */
+
+typedef struct { unsigned long key; char *val; } FlagEnt;
+typedef struct { FlagEnt *ent; size_t n, cap; } FlagMap;
+
+static void fmap_add(FlagMap *fm, unsigned long k, const char *v){
+    if (fm->n == fm->cap){ fm->cap = fm->cap? fm->cap*2 : 128;
+        fm->ent = (FlagEnt*)realloc(fm->ent, fm->cap*sizeof(*fm->ent));
+        if(!fm->ent){ perror("realloc"); exit(1); } }
+    fm->ent[fm->n].key = k;
+    fm->ent[fm->n].val = strdup(v?v:"");
+    fm->n++;
+}
+static const char* fmap_find(const FlagMap *fm, unsigned long k){
+    for(size_t i=0;i<fm->n;i++) if(fm->ent[i].key==k) return fm->ent[i].val;
+    return NULL;
+}
+static void fmap_free(FlagMap *fm){
+    for(size_t i=0;i<fm->n;i++) free(fm->ent[i].val);
+    free(fm->ent); memset(fm,0,sizeof *fm);
+}
+
+/* Format: HEX=description (e.g. 0108=Ling Ling joined) */
+static void load_flag_table(const char *path, FlagMap *fm){
+    memset(fm,0,sizeof *fm);
+    FILE *f=fopen(path,"rb");
+    if(!f){
+        /* not fatal; just run without names */
+        fprintf(stderr, "warning: couldn't open %s; flags will print without names\n", path);
+        return;
+    }
+    char line[1024];
+    while (fgets(line,sizeof line,f)){
+        char *p=trim(line);
+        if(!*p || *p=='#') continue;
+        char *eq=strchr(p,'=');
+        if(!eq) continue;
+        *eq='\0';
+        char *kstr=trim(p);
+        char *vstr=trim(eq+1);
+        /* accept hex with or without 0x; base=0 handles both */
+        char *end=NULL; unsigned long key=strtoul(kstr,&end,0);
+        if(end==kstr) continue;
+        fmap_add(fm, key, vstr);
+    }
+    fclose(f);
+}
+
 /* ---------- processing ---------- */
 
 typedef struct {
@@ -240,48 +367,63 @@ typedef struct {
     unsigned long base;          // pointer_base
     size_t ptr_index;
     const TextMap *tmap;         // for text decoding
+	const FlagMap *fmap;    // <--- NEW
 } Ctx;
+
+
 
 static void print_indent(int depth){ for(int i=0;i<depth;i++) putchar(' '); }
 
-/* Decode and print text starting at addr, stop on 0xDB */
+/* Decode and print text starting at addr, stop on 0xDB or 0xE7FA */
 static void print_text_block(Ctx *ctx, unsigned long addr, int depth) {
-    FILE *f=ctx->f;
-    if (fseek(f, (long)addr, SEEK_SET)!=0) { print_indent(depth); printf("  [text @0x%08lX] <seek error>\n", addr); return; }
+    FILE *f = ctx->f;
+    if (fseek(f, (long)addr, SEEK_SET) != 0) {
+        print_indent(depth);
+        printf("  [text @0x%08lX] <seek error>\n", addr);
+        return;
+    }
     print_indent(depth);
     printf("  [text @0x%08lX] \"", addr);
 
-    bool ok=true;
+    bool ok = true;
     while (1) {
-        long here = ftell(f);
-        uint8_t b1 = read8(f,&ok);
-        if(!ok){ printf("\" <EOF>\n"); return; }
-        if (b1 == 0xDB) { break; } // end of text
+        uint8_t b1 = read8(f, &ok);
+        if (!ok) { printf("\" <EOF>\n"); return; }
 
-        // Try 2-byte match first
+        /* 1-byte terminator */
+        if (b1 == 0xDB) { break; }
+
+        /* Peek second byte to check 2-byte terminator first, then try 2-byte map */
         long pos_after_b1 = ftell(f);
-        bool ok2=true;
-        uint8_t b2 = read8(f,&ok2);
+        bool ok2 = true;
+        uint8_t b2 = read8(f, &ok2);
         if (ok2) {
-            uint16_t k2 = ((uint16_t)b1<<8) | b2;
+            /* 2-byte terminator 0xE7FA */
+            if (b1 == 0xE7 && b2 == 0xFA) {
+                break;
+            }
+
+            /* Try 2-byte table match */
+            uint16_t k2 = ((uint16_t)b1 << 8) | b2;
             const char *s2 = tmap_find2(ctx->tmap, k2);
             if (s2) {
                 fputs(s2, stdout);
-                continue; // consumed both bytes
+                continue; /* consumed both bytes */
             }
-            // no 2-byte match -> rewind to after b1 to try 1-byte
+
+            /* No 2-byte match: rewind to just after b1 to try 1-byte */
             fseek(f, pos_after_b1, SEEK_SET);
         } else {
-            // couldn't read second byte -> rewind to after b1 for 1-byte try
+            /* Couldn't read the second byte: rewind to just after b1 to try 1-byte */
             fseek(f, pos_after_b1, SEEK_SET);
         }
 
-        // Try 1-byte
+        /* Try 1-byte table match */
         const char *s1 = tmap_find1(ctx->tmap, b1);
         if (s1) {
             fputs(s1, stdout);
         } else {
-            // unknown byte: show hex placeholder
+            /* Unknown byte: show hex placeholder */
             printf("{%02X}", b1);
         }
     }
@@ -340,7 +482,14 @@ static int process_one(Ctx *ctx, unsigned long *pos_io, ULongVec *visited, int d
                 else           printf("0x%08lX->0x%08lX", raw, resolved);
                 if (d->follow_targets[a]) follow_targets[follow_count++] = resolved;
                 if (d->arg_is_text_offset[a]) text_targets[text_count++] = resolved;
-            } else {
+            } else if (d->arg_is_flag[a]) {     // <--- NEW
+				/* raw is the numeric flag ID read from stream */
+				const char *desc = ctx->fmap ? fmap_find(ctx->fmap, raw) : NULL;
+				if (w==1)      printf("0x%02lX", raw & 0xFF);
+				else if (w==2) printf("0x%04lX", raw & 0xFFFF);
+				else           printf("0x%08lX", raw);
+				if (desc && *desc) printf(" [%s]", desc);
+			} else {
                 if (w==1)      printf("0x%02lX", raw & 0xFF);
                 else if (w==2) printf("0x%04lX", raw & 0xFFFF);
                 else           printf("0x%08lX", raw);
@@ -384,32 +533,51 @@ static int process_stream(Ctx *ctx, unsigned long start_pos, ULongVec *visited, 
     }
 }
 
+
+
 /* ---------- main ---------- */
 
-int main(void) {
+int main(int argc, char **argv) {
     char bin_path[512], yaml_path[512], table_path[512];
-    unsigned long pointer_base, table_off, pointer_count;
+    unsigned long pointer_base=0, table_off=0, pointer_count=0;
 
-    pointer_base = read_ulong_prompt_anybase("Base offset to add to each pointer (hex/dec, e.g. 0x9A000): ");
+    // 1) Take ROM path from command line
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <rom_path>\n", argv[0]);
+        return 1;
+    }
+    strncpy(bin_path, argv[1], sizeof bin_path - 1);
+    bin_path[sizeof bin_path - 1] = '\0';
 
-    printf("Binary file (ROM) path: ");
-    if (!fgets(bin_path, sizeof bin_path, stdin)) die("input error");
-    bin_path[strcspn(bin_path, "\r\n")] = 0;
+    const char *rom_filename = path_basename(bin_path);
 
-    printf("YAML opcode definition path: ");
-    if (!fgets(yaml_path, sizeof yaml_path, stdin)) die("input error");
-    yaml_path[strcspn(yaml_path, "\r\n")] = 0;
+    // CSV path (env override or default)
+    const char *csv_path = getenv("ROM_INDEX_CSV");
+    if (!csv_path || !*csv_path) csv_path = DEFAULT_CSV_PATH;
 
-    printf("Text table path (e.g. mapping.txt): ");
-    if (!fgets(table_path, sizeof table_path, stdin)) die("input error");
-    table_path[strcspn(table_path, "\r\n")] = 0;
+    // 2) Lookup or prompt + append
+    RomConfig cfg = {0};
+    if (load_rom_config(csv_path, rom_filename, &cfg)) {
+        printf("Loaded config for \"%s\" from %s\n", rom_filename, csv_path);
+        strncpy(yaml_path,  cfg.yaml_path,  sizeof yaml_path  -1);
+        strncpy(table_path, cfg.table_path, sizeof table_path -1);
+        pointer_base  = cfg.pointer_base;
+        pointer_count = cfg.pointer_count;
+    } else {
+        printf("No config for \"%s\" in %s — please provide details.\n", rom_filename, csv_path);
+        prompt_line("YAML opcode definition path: ", yaml_path, sizeof yaml_path);
+        prompt_line("Text table path (e.g. mapping.txt): ", table_path, sizeof table_path);
+        pointer_base  = read_ulong_prompt_anybase("Base offset to add to each pointer (hex/dec, e.g. 0x9A000): ");
+        pointer_count = read_ulong_prompt_anybase("Number of 16-bit pointers (hex/dec): ");
+        append_rom_config(csv_path, rom_filename, yaml_path, table_path, pointer_base, pointer_count);
+        printf("Appended config for \"%s\" to %s\n", rom_filename, csv_path);
+    }
 
-    pointer_count = read_ulong_prompt_anybase("Number of 16-bit pointers (hex/dec): ");
-
+    // 3) Open ROM
     FILE *f = fopen(bin_path, "rb");
     if (!f) { perror(bin_path); return 1; }
 
-    // Derive pointer table offset: read BE16 at pointer_base and add it
+    // 4) Derive pointer table offset: read BE16 at pointer_base and add it
     bool ok=true;
     if (fseek(f, (long)pointer_base, SEEK_SET)!=0) { perror("fseek base"); fclose(f); return 2; }
     uint16_t table_rel = read16_be(f,&ok);
@@ -419,6 +587,7 @@ int main(void) {
     printf("\nPointer table start derived: base 0x%08lX + BE16(0x%04X) = 0x%08lX\n",
            pointer_base, table_rel, table_off);
 
+    // 5) Load defs + text table
     DefVec defs={0}; load_defs(yaml_path,&defs);
     printf("Loaded %zu opcode definitions from %s\n", defs.count, yaml_path);
     if (!defs.count) die("no opcode definitions loaded");
@@ -427,7 +596,18 @@ int main(void) {
     printf("Loaded text table: %zu one-byte entries, %zu two-byte entries from %s\n",
            tmap.n1, tmap.n2, table_path);
 
-    Ctx ctx = {.f=f, .defs=&defs, .base=pointer_base, .ptr_index=0, .tmap=&tmap};
+    // 6) Decode
+	FlagMap fmap;                     // NEW: load flag descriptions
+	load_flag_table("flag.tbl", &fmap);
+
+	Ctx ctx = {
+		.f = f,
+		.defs = &defs,
+		.base = pointer_base,
+		.ptr_index = 0,
+		.tmap = &tmap,
+		.fmap = &fmap               // NEW
+	};
 
     for (unsigned long i=0;i<pointer_count;i++) {
         unsigned long ptr_pos = table_off + i*2UL;
@@ -447,7 +627,7 @@ int main(void) {
         free(visited.items);
         if (rc) { tmap_free(&tmap); free(defs.items); fclose(f); return rc; }
     }
-
+	fmap_free(&fmap);                // NEW
     tmap_free(&tmap);
     free(defs.items);
     fclose(f);
