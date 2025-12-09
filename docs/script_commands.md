@@ -19,6 +19,10 @@ Setup actor with some differences, less commonly used. Bytes 7 and 8 specify the
 
 Immediately following byte specifies time to wait.
 
+## 0x27 Set flag
+
+Immediately following two byte flag is set.
+
 ## 0x2A Request text
 
 Request an entry in the dialogue text block according to an immediately following two byte index, and then starts processing dialogue opcodes for that entry. The two bytes at 0x14800 specify the location of the first two byte pointer pair in this index. Used in cutscenes, where there is no player interaction with NPCs.
