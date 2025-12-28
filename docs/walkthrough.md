@@ -39,3 +39,7 @@ Talk to Raiden (leftmost disciple).
 Go to the back room.
 
 Talk to Guru/AkiAki/MeiMei, the founder of Kowloonism. After a few comments she and Raiden will leave for the Kowloon-building.
+
+Go to the building to the left of the locked Kowloon building. Go to the second floor and talk to Dr. Zhang. Answer yes to get the Altar Detector.
+
+Go outside and talk to the people outside the Kowloon building. The back entrance door (hidden) is now unlocked.
