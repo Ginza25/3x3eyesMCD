@@ -43,3 +43,5 @@ Talk to Guru/AkiAki/MeiMei, the founder of Kowloonism. After a few comments she 
 Go to the building to the left of the locked Kowloon building. Go to the second floor and talk to Dr. Zhang. Answer yes to get the Altar Detector.
 
 Go outside and talk to the people outside the Kowloon building. The back entrance door (hidden) is now unlocked.
+
+Go to the third floor. You can talk to the man with changing personalities. Use the phone to save the game. When ready go down the ladder to enter the first dungeon.
