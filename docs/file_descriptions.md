@@ -42,9 +42,49 @@ EV000FD.DAT Yakumo meeting Pai in bar in Tokyo
 
 EV00006.DAT Hong Kong
 
-EV00017.DAT Yougekisha
+EV00007.DAT Hong Kong (later)
+
+EV00008.DAT Hong Kong (later)
+
+EV00009.DAT Hong Kong (later)
+
+EV00010.DAT Hong Kong (later)
 
 EV00012.DAT Kowloon
+
+EV00013.DAT Kowloon (later)
+
+EV00014.DAT Kowloon (later)
+
+EV00015.DAT Kowloon (later)
+
+EV00016.DAT Kowloon (later)
+
+EV00017.DAT Yougekisha
+
+EV00018.DAT Yougekisha after first boss/dungeon
+
+EV00019.DAT Yougekisha (later)
+
+EV00020.DAT Yougekisha (later)
+
+EV00021.DAT Yougekisha (later)
+
+EV00022.DAT Yougekisha (later)
+
+EV00023.DAT Yougekisha (later)
+
+EV00024.DAT Yougekisha (later)
+
+EV00025.DAT Yougekisha (later)
+
+EV00027.DAT Yellow Mansion
+
+EV00028.DAT Yellow Mansion (later)
+
+EV00029.DAT Yellow Mansion (later)
+
+EV00030.DAT Yellow Mansion (later)
 
 ### Side quests
 
