@@ -48,6 +48,18 @@ EV00008.DAT Hong Kong (later)
 
 EV00009.DAT Hong Kong (later)
 
+EV0000A.DAT Hong Kong (later)
+
+EV0000B.DAT Hong Kong (later)
+
+EV0000C.DAT Hong Kong (later)
+
+EV0000D.DAT Hong Kong (later)
+
+EV0000E.DAT Hong Kong (later)
+
+EV0000F.DAT Hong Kong (later)
+
 EV00010.DAT Hong Kong (later)
 
 EV00012.DAT Kowloon
@@ -65,6 +77,8 @@ EV00017.DAT Yougekisha
 EV00018.DAT Yougekisha after first boss/dungeon
 
 EV00019.DAT Yougekisha (later)
+
+EV0001A.DAT Yougekisha (later)
 
 EV00020.DAT Yougekisha (later)
 
