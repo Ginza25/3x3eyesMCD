@@ -80,6 +80,16 @@ EV00019.DAT Yougekisha (later)
 
 EV0001A.DAT Yougekisha (later)
 
+EV0001B.DAT Yougekisha (later)
+
+EV0001C.DAT Yougekisha (later)
+
+EV0001D.DAT Yougekisha (later)
+
+EV0001E.DAT Yougekisha (later)
+
+EV0001F.DAT Yougekisha (later)
+
 EV00020.DAT Yougekisha (later)
 
 EV00021.DAT Yougekisha (later)
