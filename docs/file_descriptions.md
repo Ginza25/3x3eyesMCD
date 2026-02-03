@@ -110,6 +110,10 @@ EV00029.DAT Yellow Mansion (later)
 
 EV00030.DAT Yellow Mansion (later)
 
+EV00032.DAT Macau
+
+EV00033.DAT Macau (later)
+
 ### Side quests
 
 EV00005.DAT 「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
