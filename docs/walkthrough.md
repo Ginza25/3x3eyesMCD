@@ -87,3 +87,9 @@ Go to the building to the left of the locked Kowloon building. Go to the second 
 Go outside and talk to the people outside the Kowloon building. The back entrance door (hidden) is now unlocked.
 
 Go to the third floor. You can talk to the man with changing personalities. Use the phone to save the game. When ready go down the ladder to enter the first dungeon.
+
+To finish the dungeon and the boss you need to level up to about level 5 for both Yakumo and Pai. Go back to the weapons shop in Hong Kong and purchase some better equipment and weapons inbetween leveling up and gaining money.
+
+After finishing the boss, go back to Yougekisha. There are four flags which need to be set, each has two ways to set it. Flag 1: Talk to the receptionist **or** talk to the woman in the blue suit in the center of the 2nd floor newsroom. Flag 2: Talk to **either one** of the people in the basement. Flag 3: Talk to the blue suited woman **or** the bald headed guy in the middle bottom of the 2nd floor newsroom. Flag 4: Talk to the black clothed man on the 2nd floor where Ling Ling used to stand **or** talk to the white shirted guy on the 2nd floor newsroom.
+
+Now the "open bridge" flag should be set, and you can go back to Kowloon and cross the bridge to the south.
