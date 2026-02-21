@@ -34,6 +34,16 @@ The portrait tilemap has primary two byte code attached which specifies which se
 
 The game CD contains 310 EV files, which gives a hint regarding how large the game is, however for some reason several are duplicates and only 231 are unique.
 
+## Text data block
+
+The first two bytes in the text block (e.g. at 0x14800-14801 in the EV-file) is an offset to the start of the text string pointer table. Usually this is 0x0008, meaning the pointers start at e.g. 0x14808. These text strings are connected to game actors and events in the event data block.
+
+The next two bytes (e.g. 0x14802-14803) is an offset to the start of a pointer table, which again contains opcodes which point to shop text.
+
+The next two bytes (e.g. 0x14804-14805) is an offset to a block of numbers of unknown purpose.
+
+The final two bytes (e.g. 0x14806-14807) is an offset to a pointer table, which again contains opcodes which point to special message text, such as opening chests.
+
 ## Story order of EV files
 
 EV000A0.DAT Benares intro
