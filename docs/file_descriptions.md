@@ -150,6 +150,10 @@ Contain LZ (Kosinksi) compressed 8x8 tiles, tile color palettes and, probably, t
 
 Contain the main character sprite sets (each party configuration seems to have a separate file). Also contains the hint system text data.
 
+PLAY000.DAT Hong Kong. Pai, Pai in Yellow dress and Yakumo sprites.
+
+PLAY001.DAT Hong Kong. Pai, Ling Ling and Yakumo sprites.
+
 # SMON files
 
 Some kind of encoded graphics (monster graphics?)?
