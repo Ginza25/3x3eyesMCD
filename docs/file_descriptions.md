@@ -50,6 +50,8 @@ EV000A0.DAT Benares intro
 
 EV000FD.DAT Yakumo meeting Pai in bar in Tokyo
 
+EV00005.DAT Side Quest「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
+
 EV00006.DAT Hong Kong
 
 EV00007.DAT Hong Kong (later)
@@ -71,6 +73,8 @@ EV0000E.DAT Hong Kong (later)
 EV0000F.DAT Hong Kong (later)
 
 EV00010.DAT Hong Kong (later)
+
+EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feast! Ah, a beauty showdown!?"
 
 EV00012.DAT Kowloon
 
@@ -112,35 +116,94 @@ EV00024.DAT Yougekisha (later)
 
 EV00025.DAT Yougekisha (later)
 
+EV00026.DAT Side Quest「獣になった少年」"The Boy Who Became a Beast"
+
 EV00027.DAT Yellow Mansion
 
 EV00028.DAT Yellow Mansion (later)
 
 EV00029.DAT Yellow Mansion (later)
 
+EV0002B.DAT Yellow Mansion (later)
+
+EV0002C.DAT Huang Mansion (later)
+
+EV0002D.DAT Huang Mansion (later)
+
+EV0002E.DAT Huang Mansion (later)
+
+EV0002F.DAT Huang Mansion (later)
+
 EV00030.DAT Yellow Mansion (later)
+
+EV00031.DAT Side Quest「愛は山脈を越えて」"Love Across the Mountains"
 
 EV00032.DAT Macau
 
 EV00033.DAT Macau (later)
 
-### Side quests
+EV00034.DAT Macau (later)
 
-EV00005.DAT 「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
+EV00035.DAT Macau (later)
 
-EV00011.DAT 「夢の狂宴!!.ああ、美女対決!?」 "A dream feast! Ah, a beauty showdown!?"
+EV00036.DAT Macau (later)
 
-EV00026.DAT 「獣になった少年」"The Boy Who Became a Beast"
+EV00037.DAT Macau (later)
 
-EV00031.DAT 「愛は山脈を越えて」"Love Across the Mountains"
+EV00039.DAT Side Quest「マカオが熱いとき」"When Macau is Hot"
 
-EV00039.DAT 「マカオが熱いとき」"When Macau is Hot"
+EV0003A.DAT Macau dog racing
 
-EV0003B.DAT 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
+EV0003A.DAT Macau dog racing
 
-EV0003E.DAT 「香港妖魔変」"Hong Kong Demon Transformation"
+EV0003B.DAT Side Quest 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
+
+EV0003C.DAT Royal Soarer
+
+EV0003D.DAT Royal Soarer
+
+EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
+
+EV0003F.DAT Royal Soarer
+
+EV00040.DAT Royal Soarer
+
+EV00041.DAT Royal Soarer
+
+EV00042.DAT Royal Soarer
 
 EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016.DAT has a different version of this, missing parts of the ending)
+
+EV00044.DAT Nanning
+
+EV00045.DAT Nanning
+
+EV00046.DAT Nanning
+
+EV00047.DAT Nanning
+
+EV00048.DAT Nanning
+
+EV00049.DAT Unknown Side Quest with Mihoshi
+
+EV0004A.DAT Unknown
+
+EV0004B.DAT Unknown
+
+EV0004C.DAT Unknown Side Quest with Mihoshi
+
+EV0004D.DAT Changsha
+
+EV0004E.DAT Changsha
+
+EV0004F.DAT Changsha
+
+EV00050.DAT Unknown
+
+EV00051.DAT Old man talking about Takuhi
+
+EV00053.DAT Side Quest 「あなたしか見えない」 "I can only see you" variation (EV00005.DAT contains a different version of this scenario)
+
 
 # MAP files
 
