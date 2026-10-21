@@ -52,7 +52,8 @@ The final two bytes (e.g. 0x14806-14807) is an offset to a pointer table, which 
 00MAP48.DAT
 * EV000FD.DAT Yakumo meeting Pai in bar in Tokyo
 
-EV00005.DAT Side Quest「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
+00MAP80.DAT
+* EV00005.DAT Side Quest「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
 
 00MAP03.DAT Hong Kong
 * EV00006.DAT Hong Kong
@@ -67,7 +68,8 @@ EV00005.DAT Side Quest「あなたしか見えない」 "I can only see you" (EV
 * EV0000F.DAT Hong Kong (later)
 * EV00010.DAT Hong Kong (later)
 
-EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feast! Ah, a beauty showdown!?"
+00MAP81.DAT
+* EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feast! Ah, a beauty showdown!?"
 
 00MAP04.DAT Kowloon
 * EV00012.DAT Kowloon
@@ -76,7 +78,7 @@ EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feas
 * EV00015.DAT Kowloon (later)
 * EV00016.DAT Kowloon (later)
 
-00MAP05.DAT
+00MAP05.DAT Yougekisha
 * EV00017.DAT Yougekisha
 * EV00018.DAT Yougekisha after first boss/dungeon
 * EV00019.DAT Yougekisha (later)
@@ -93,7 +95,8 @@ EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feas
 * EV00024.DAT Yougekisha (later)
 * EV00025.DAT Yougekisha (later)
 
-EV00026.DAT Side Quest「獣になった少年」"The Boy Who Became a Beast"
+00MAP82.DAT
+* EV00026.DAT Side Quest「獣になった少年」"The Boy Who Became a Beast"
 
 00MAP06.DAT
 * EV00027.DAT Yellow Mansion
@@ -106,9 +109,10 @@ EV00026.DAT Side Quest「獣になった少年」"The Boy Who Became a Beast"
 * EV0002F.DAT Huang Mansion (later)
 * EV00030.DAT Yellow Mansion (later)
 
-EV00031.DAT Side Quest「愛は山脈を越えて」"Love Across the Mountains"
+00MAP83.DAT
+* EV00031.DAT Side Quest「愛は山脈を越えて」"Love Across the Mountains"
 
-00MAP07.DAT
+00MAP07.DAT Macau
 * EV00032.DAT Macau
 * EV00033.DAT Macau (later)
 * EV00034.DAT Macau (later)
@@ -116,18 +120,21 @@ EV00031.DAT Side Quest「愛は山脈を越えて」"Love Across the Mountains"
 * EV00036.DAT Macau (later)
 * EV00037.DAT Macau (later)
 
-EV00039.DAT Side Quest「マカオが熱いとき」"When Macau is Hot"
+00MAP84.DAT Macau
+* EV00039.DAT Side Quest「マカオが熱いとき」"When Macau is Hot"
 
 00MAP08.DAT
 * EV0003A.DAT Macau dog racing
 
-EV0003B.DAT Side Quest 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
+00MAP85.DAT
+* EV0003B.DAT Side Quest 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
 
 00MAP09.DAT
 * EV0003C.DAT Royal Soarer
 * EV0003D.DAT Royal Soarer
 
-EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
+00MAP86.DAT
+* EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
 
 00MAP0A.DAT
 * EV0003F.DAT Royal Soarer
@@ -137,7 +144,8 @@ EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
 00MAP0B.DAT
 * EV00042.DAT Royal Soarer
 
-EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016.DAT has a different version of this, missing parts of the ending)
+00MAP88.DAT
+* EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016.DAT has a different version of this, missing parts of the ending)
 
 00MAP0C.DAT
 * EV00044.DAT Nanning
@@ -146,22 +154,26 @@ EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016
 * EV00047.DAT Nanning
 * EV00048.DAT Nanning
 
-EV00049.DAT Unknown Side Quest with Mihoshi
+00MAP89.DAT
+* EV00049.DAT Unknown Side Quest with Mihoshi
 
 00MAP0D.DAT
 * EV0004A.DAT Unknown
 * EV0004B.DAT Unknown
 
-EV0004C.DAT Unknown Side Quest with Mihoshi
+00MAP8A.DAT
+* EV0004C.DAT Unknown Side Quest with Mihoshi
 
 00MAP0E.DAT
 * EV0004D.DAT Changsha
 * EV0004E.DAT Changsha
 * EV0004F.DAT Changsha
 
-EV00050.DAT Unknown
+00MAP8B.DAT
+* EV00050.DAT Unknown
 
-EV00051.DAT Old man talking about Takuhi
+00MAP0F.DAT
+* EV00051.DAT Old man talking about Takuhi
 
 EV00053.DAT Side Quest 「あなたしか見えない」 "I can only see you" variation (EV00005.DAT contains a different version of this scenario)
 
