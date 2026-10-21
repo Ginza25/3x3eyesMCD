@@ -44,159 +44,120 @@ The next two bytes (e.g. 0x14804-14805) is an offset to a block of numbers of un
 
 The final two bytes (e.g. 0x14806-14807) is an offset to a pointer table, which again contains opcodes which point to special message text, such as opening chests.
 
-## Story order of EV files
+## Story order of MAPS and EV files
 
-EV000A0.DAT Benares intro
+00MAP26.DAT
+* EV000A0.DAT Benares intro
 
-EV000FD.DAT Yakumo meeting Pai in bar in Tokyo
+00MAP48.DAT
+* EV000FD.DAT Yakumo meeting Pai in bar in Tokyo
 
 EV00005.DAT Side Quest「あなたしか見えない」 "I can only see you" (EV00053.DAT contains an older/different version of this scenario)
 
-EV00006.DAT Hong Kong
-
-EV00007.DAT Hong Kong (later)
-
-EV00008.DAT Hong Kong (later)
-
-EV00009.DAT Hong Kong (later)
-
-EV0000A.DAT Hong Kong (later)
-
-EV0000B.DAT Hong Kong (later)
-
-EV0000C.DAT Hong Kong (later)
-
-EV0000D.DAT Hong Kong (later)
-
-EV0000E.DAT Hong Kong (later)
-
-EV0000F.DAT Hong Kong (later)
-
-EV00010.DAT Hong Kong (later)
+00MAP03.DAT Hong Kong
+* EV00006.DAT Hong Kong
+* EV00007.DAT Hong Kong (later)
+* EV00008.DAT Hong Kong (later)
+* EV00009.DAT Hong Kong (later)
+* EV0000A.DAT Hong Kong (later)
+* EV0000B.DAT Hong Kong (later)
+* EV0000C.DAT Hong Kong (later)
+* EV0000D.DAT Hong Kong (later)
+* EV0000E.DAT Hong Kong (later)
+* EV0000F.DAT Hong Kong (later)
+* EV00010.DAT Hong Kong (later)
 
 EV00011.DAT Side Quest「夢の狂宴!!.ああ、美女対決!?」 "A dream feast! Ah, a beauty showdown!?"
 
-EV00012.DAT Kowloon
+00MAP04.DAT Kowloon
+* EV00012.DAT Kowloon
+* EV00013.DAT Kowloon (later)
+* EV00014.DAT Kowloon (later)
+* EV00015.DAT Kowloon (later)
+* EV00016.DAT Kowloon (later)
 
-EV00013.DAT Kowloon (later)
-
-EV00014.DAT Kowloon (later)
-
-EV00015.DAT Kowloon (later)
-
-EV00016.DAT Kowloon (later)
-
-EV00017.DAT Yougekisha
-
-EV00018.DAT Yougekisha after first boss/dungeon
-
-EV00019.DAT Yougekisha (later)
-
-EV0001A.DAT Yougekisha (later)
-
-EV0001B.DAT Yougekisha (later)
-
-EV0001C.DAT Yougekisha (later)
-
-EV0001D.DAT Yougekisha (later)
-
-EV0001E.DAT Yougekisha (later)
-
-EV0001F.DAT Yougekisha (later)
-
-EV00020.DAT Yougekisha (later)
-
-EV00021.DAT Yougekisha (later)
-
-EV00022.DAT Yougekisha (later)
-
-EV00023.DAT Yougekisha (later)
-
-EV00024.DAT Yougekisha (later)
-
-EV00025.DAT Yougekisha (later)
+00MAP05.DAT
+* EV00017.DAT Yougekisha
+* EV00018.DAT Yougekisha after first boss/dungeon
+* EV00019.DAT Yougekisha (later)
+* EV0001A.DAT Yougekisha (later)
+* EV0001B.DAT Yougekisha (later)
+* EV0001C.DAT Yougekisha (later)
+* EV0001D.DAT Yougekisha (later)
+* EV0001E.DAT Yougekisha (later)
+* EV0001F.DAT Yougekisha (later)
+* EV00020.DAT Yougekisha (later)
+* EV00021.DAT Yougekisha (later)
+* EV00022.DAT Yougekisha (later)
+* EV00023.DAT Yougekisha (later)
+* EV00024.DAT Yougekisha (later)
+* EV00025.DAT Yougekisha (later)
 
 EV00026.DAT Side Quest「獣になった少年」"The Boy Who Became a Beast"
 
-EV00027.DAT Yellow Mansion
-
-EV00028.DAT Yellow Mansion (later)
-
-EV00029.DAT Yellow Mansion (later)
-
-EV0002B.DAT Yellow Mansion (later)
-
-EV0002C.DAT Huang Mansion (later)
-
-EV0002D.DAT Huang Mansion (later)
-
-EV0002E.DAT Huang Mansion (later)
-
-EV0002F.DAT Huang Mansion (later)
-
-EV00030.DAT Yellow Mansion (later)
+00MAP06.DAT
+* EV00027.DAT Yellow Mansion
+* EV00028.DAT Yellow Mansion (later)
+* EV00029.DAT Yellow Mansion (later)
+* EV0002B.DAT Yellow Mansion (later)
+* EV0002C.DAT Huang Mansion (later)
+* EV0002D.DAT Huang Mansion (later)
+* EV0002E.DAT Huang Mansion (later)
+* EV0002F.DAT Huang Mansion (later)
+* EV00030.DAT Yellow Mansion (later)
 
 EV00031.DAT Side Quest「愛は山脈を越えて」"Love Across the Mountains"
 
-EV00032.DAT Macau
-
-EV00033.DAT Macau (later)
-
-EV00034.DAT Macau (later)
-
-EV00035.DAT Macau (later)
-
-EV00036.DAT Macau (later)
-
-EV00037.DAT Macau (later)
+00MAP07.DAT
+* EV00032.DAT Macau
+* EV00033.DAT Macau (later)
+* EV00034.DAT Macau (later)
+* EV00035.DAT Macau (later)
+* EV00036.DAT Macau (later)
+* EV00037.DAT Macau (later)
 
 EV00039.DAT Side Quest「マカオが熱いとき」"When Macau is Hot"
 
-EV0003A.DAT Macau dog racing
-
-EV0003A.DAT Macau dog racing
+00MAP08.DAT
+* EV0003A.DAT Macau dog racing
 
 EV0003B.DAT Side Quest 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
 
-EV0003C.DAT Royal Soarer
-
-EV0003D.DAT Royal Soarer
+00MAP09.DAT
+* EV0003C.DAT Royal Soarer
+* EV0003D.DAT Royal Soarer
 
 EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
 
-EV0003F.DAT Royal Soarer
+00MAP0A.DAT
+* EV0003F.DAT Royal Soarer
+* EV00040.DAT Royal Soarer
+* EV00041.DAT Royal Soarer
 
-EV00040.DAT Royal Soarer
-
-EV00041.DAT Royal Soarer
-
-EV00042.DAT Royal Soarer
+00MAP0B.DAT
+* EV00042.DAT Royal Soarer
 
 EV00043.DAT 「香港妖魔変２」 "Hong Kong Demon Transformation 2" (EV00016.DAT has a different version of this, missing parts of the ending)
 
-EV00044.DAT Nanning
-
-EV00045.DAT Nanning
-
-EV00046.DAT Nanning
-
-EV00047.DAT Nanning
-
-EV00048.DAT Nanning
+00MAP0C.DAT
+* EV00044.DAT Nanning
+* EV00045.DAT Nanning
+* EV00046.DAT Nanning
+* EV00047.DAT Nanning
+* EV00048.DAT Nanning
 
 EV00049.DAT Unknown Side Quest with Mihoshi
 
-EV0004A.DAT Unknown
-
-EV0004B.DAT Unknown
+00MAP0D.DAT
+* EV0004A.DAT Unknown
+* EV0004B.DAT Unknown
 
 EV0004C.DAT Unknown Side Quest with Mihoshi
 
-EV0004D.DAT Changsha
-
-EV0004E.DAT Changsha
-
-EV0004F.DAT Changsha
+00MAP0E.DAT
+* EV0004D.DAT Changsha
+* EV0004E.DAT Changsha
+* EV0004F.DAT Changsha
 
 EV00050.DAT Unknown
 
