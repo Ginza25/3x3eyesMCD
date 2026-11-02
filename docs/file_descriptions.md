@@ -46,7 +46,9 @@ The final two bytes (e.g. 0x14806-14807) is an offset to a pointer table, which 
 
 ## Story order of MAPS and EV files
 
-00MAP26.DAT
+Using the debug menu, you can warp to the relevant map using the decimal number (in paranthesis)
+
+00MAP26.DAT (038)
 * EV000A0.DAT Benares intro
 
 00MAP48.DAT
@@ -129,19 +131,19 @@ The final two bytes (e.g. 0x14806-14807) is an offset to a pointer table, which 
 00MAP85.DAT
 * EV0003B.DAT Side Quest 「失われし憑魔の秘宝」 "The Lost Treasure of the Demonic Possession"
 
-00MAP09.DAT
+00MAP09.DAT (009) Royal Soarer entrance and first floors
 * EV0003C.DAT Royal Soarer
 * EV0003D.DAT Royal Soarer
 
 00MAP86.DAT
 * EV0003E.DAT Side Quest「香港妖魔変」"Hong Kong Demon Transformation"
 
-00MAP0A.DAT
+00MAP0A.DAT (010) Royal Soarer floors 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 * EV0003F.DAT Royal Soarer
 * EV00040.DAT Royal Soarer
 * EV00041.DAT Royal Soarer
 
-00MAP0B.DAT
+00MAP0B.DAT (011) Royal Soarer floors 17, 18, 19, 20 and roof
 * EV00042.DAT Royal Soarer
 
 00MAP88.DAT
